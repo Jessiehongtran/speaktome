@@ -1,0 +1,32 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 30px 0 30px;
+
+    h1 {
+        color: red;
+    }
+
+    .nav-bar {
+        display: flex;
+        justify-content: space-around;
+        
+
+        li {
+            list-style: none;
+
+            .nav-text{
+            text-decoration: none;
+            color: grey;
+            margin-right: 30px;
+
+            
+            }
+
+            .nav-text:hover {
+                color: red;
+            }
+        }
+    }
+}
