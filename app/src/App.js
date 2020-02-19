@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import './App.css';
 import Navigation from './components/navigation';
 import Videos from './components/videos';
+import Calendar from './components/calendar';
 
 class App extends React.Component {
   render(){
@@ -26,6 +27,7 @@ class App extends React.Component {
               props => {
                 return (
                   <> 
+                  <Calendar />
                   
                   </>
                 )}}
