@@ -27,8 +27,8 @@ class App extends React.Component {
               props => {
                 return (
                   <> 
-                  <Calendar />
-                  
+                  <Navigation {...props}/>
+                  <Calendar {...props}/>
                   </>
                 )}}
           />
