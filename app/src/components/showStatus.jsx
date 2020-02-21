@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/showStatus.scss';
 
 class DisplayStatus extends React.Component {
     constructor(props){
@@ -12,11 +13,11 @@ class DisplayStatus extends React.Component {
         console.log('props in Display', this.props)
         const date = Date();
         return (
-            <div>
+            <div className="show">
                 {this.props.statusList.map(status => (
-                    <div key={status.id}>
-                      <p>{date.toString()}</p>
-                      <p>{status.status}</p>
+                    <div key={status.id} className="status-container">
+                      <p className="date">{date.toString()}</p>
+                      <p className="text">{status.status}</p>
                     </div>
                 ))}
             </div>
