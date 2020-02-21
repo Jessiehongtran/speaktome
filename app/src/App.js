@@ -4,6 +4,7 @@ import './App.css';
 import Navigation from './components/navigation';
 import Videos from './components/videos';
 import Calendar from './components/calendar';
+import Write from './views/write';
 
 class App extends React.Component {
   render(){
@@ -48,7 +49,7 @@ class App extends React.Component {
               props => {
                 return (
                   <> 
-                  
+                  <Write {...props}/>
                   </>
                 )}}
           />
