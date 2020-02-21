@@ -1,6 +1,7 @@
 import React from 'react';
 import WriteStatus from '../components/writeStatus';
 import DisplayStatus from '../components/showStatus';
+import Navigation from '../components/navigation';
 
 class WritePage extends React.Component {
     constructor(){
@@ -26,6 +27,7 @@ class WritePage extends React.Component {
 
         return (
             <div>
+                <Navigation />
                 <WriteStatus
                     addStatus={this.addStatus} 
                 />

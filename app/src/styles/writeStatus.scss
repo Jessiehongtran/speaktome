@@ -1,0 +1,18 @@
+
+form {
+    display: flex;
+    flex-direction: column;
+    margin: 50px 10px 20px 100px;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    input {
+        width: 50%;
+        height: 200px;
+        margin-bottom: 20px;
+    }
+
+    button {
+        width: 10%;
+    }
+}

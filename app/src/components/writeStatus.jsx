@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/writeStatus.scss';
 
 class WriteStatus extends React.Component {
     constructor(props){
