@@ -2,6 +2,7 @@ import React from 'react';
 import WriteStatus from '../components/writeStatus';
 import DisplayStatus from '../components/showStatus';
 import Navigation from '../components/navigation';
+import axios from 'axios';
 
 class WritePage extends React.Component {
     constructor(){
@@ -14,16 +15,26 @@ class WritePage extends React.Component {
     addStatus = status => {
         const newStatus = {
             id: Date.now(),
-            status: status
+            content: status
         }
+        console.log('newStatus', newStatus)
         this.setState({
             statusList : [...this.state.statusList, newStatus]
         })
     }
 
+    componentDidMount(){
+        axios.get('https://letsenglish.herokuapp.com/api/note')
+            .then(res => {
+                console.log('res in writepage', res)
+                this.setState({statusList: res.data})
+            })
+            .catch(err => console.log(err.message))
+    }
+
 
     render(){
-        
+        console.log('statusList', this.state.statusList)
 
         return (
             <div>

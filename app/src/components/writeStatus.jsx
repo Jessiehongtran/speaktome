@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import '../styles/writeStatus.scss';
 
 class WriteStatus extends React.Component {
@@ -17,6 +18,11 @@ class WriteStatus extends React.Component {
         event.preventDefault();
         console.log('status', this.state.status)
         this.props.addStatus(this.state.status)
+        axios.post('https://letsenglish.herokuapp.com/api/note', this.state.status)
+            .then(res => {
+                console.log('res', res)
+            })
+            .catch(err => console.log(err.message))
     }
 
 
