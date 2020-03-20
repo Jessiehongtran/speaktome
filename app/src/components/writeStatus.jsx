@@ -6,19 +6,23 @@ class WriteStatus extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            status: '',
+            
         }
     }
 
     handleChange = event => {
-        this.setState({status: event.target.value})
+        const status = {
+            content: event.target.value,
+            created_at:  new Date().toLocaleString()
+        }
+        this.setState(status)
     }
 
     handleSubmit = event => {
         event.preventDefault();
-        console.log('status', this.state.status)
-        this.props.addStatus(this.state.status)
-        axios.post('https://letsenglish.herokuapp.com/api/note', this.state.status)
+        console.log('status', this.state)
+        this.props.addStatus(this.state)
+        axios.post('https://letsenglish.herokuapp.com/api/note', this.state)
             .then(res => {
                 console.log('res', res)
             })
@@ -28,7 +32,6 @@ class WriteStatus extends React.Component {
 
     render(){
 
-        console.log(this.state.status)
         return (
             <form onSubmit={this.handleSubmit}>
                 <input 

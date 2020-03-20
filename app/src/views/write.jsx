@@ -15,7 +15,8 @@ class WritePage extends React.Component {
     addStatus = status => {
         const newStatus = {
             id: Date.now(),
-            content: status
+            content: status.content,
+            created_at: status.created_at
         }
         console.log('newStatus', newStatus)
         this.setState({
