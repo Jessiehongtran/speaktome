@@ -45,6 +45,7 @@ class WritePage extends React.Component {
                 />
                 <DisplayStatus
                     statusList={this.state.statusList}
+                    history={this.props.history}
                 />
             </div>
         )

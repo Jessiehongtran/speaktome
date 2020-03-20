@@ -5,9 +5,21 @@
             font-size: 12px;
         };
 
-        .text {
-            font-size: 18px;
+        .note {
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
+            .text {
+                font-size: 18px;
+                margin-right: 20px;
+            }
+
+            .btn {
+
+            }
         }
+
+        
     }
 }
