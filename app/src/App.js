@@ -6,6 +6,7 @@ import Videos from './components/videos';
 import Calendar from './components/calendar';
 import Read from './components/read';
 import Write from './views/write';
+import Write2 from './components/write2';
 
 class App extends React.Component {
   render(){
@@ -44,13 +45,23 @@ class App extends React.Component {
                   </>
                 )}}
           />
-          <Route 
+          {/* <Route 
             exact path="/write" 
             render = {
               props => {
                 return (
                   <> 
                   <Write {...props}/>
+                  </>
+                )}}
+          /> */}
+          <Route 
+            exact path="/write2" 
+            render = {
+              props => {
+                return (
+                  <> 
+                  <Write2 {...props}/>
                   </>
                 )}}
           />
