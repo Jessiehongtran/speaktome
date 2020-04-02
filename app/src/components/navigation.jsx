@@ -36,7 +36,7 @@ class Navigation extends React.Component {
                 </Link>
                 </li>
                 <li>
-                <Link exact to="/write" activeClassName="activeNavButton" className="nav-text">
+                <Link exact to="/write2" activeClassName="activeNavButton" className="nav-text">
                     1 write
                 </Link>
                 </li>

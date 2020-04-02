@@ -9,7 +9,7 @@ class Write2 extends React.Component {
             notes: [],
             status: "",
             toEdit: false,
-            toEditId: "",
+            toEditId: 0,
             contentToEdit: ""
         }
 
@@ -48,11 +48,22 @@ class Write2 extends React.Component {
         })
     }
 
+    fetchData(){
+        axios.get('https://letsenglish.herokuapp.com/api/note')
+            .then(res => {
+                console.log('res in writepage', res)
+                this.setState({notes: res.data})
+            })
+            .catch(err => console.log(err.message))
+
+    }
+
 
     deleteNote(id){
         axios.delete(`https://letsenglish.herokuapp.com/api/note/${id}`)
             .then(res => {
                 console.log('res in del req', res)
+                this.fetchData()
             })
             .catch(err => console.log(err.message))
     }
@@ -67,27 +78,14 @@ class Write2 extends React.Component {
             .then(res => {
                 console.log('res in patch', res)
                 this.setState({toEdit:!this.state.toEdit})
+                this.fetchData()
             })
             .catch(err => console.log(err.message))
     }
 
 
     componentDidMount(){
-        axios.get('https://letsenglish.herokuapp.com/api/note')
-            .then(res => {
-                console.log('res in writepage', res)
-                this.setState({notes: res.data})
-            })
-            .catch(err => console.log(err.message))
-    }
-
-    componentDidUpdate(){
-        axios.get('https://letsenglish.herokuapp.com/api/note')
-            .then(res => {
-                console.log('res in writepage', res)
-                this.setState({notes: res.data})
-            })
-            .catch(err => console.log(err.message))
+        this.fetchData()
     }
 
 
@@ -100,6 +98,9 @@ class Write2 extends React.Component {
                 notesToDisplay.push(this.state.notes[this.state.notes.length - i - 1])
             }
         }
+
+        console.log('notesToDisplay', notesToDisplay)
+        console.log('toEditId', this.state.toEditId)
 
         if (this.state.toEdit){
             console.log('ready to edit')
