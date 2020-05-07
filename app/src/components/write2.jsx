@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Navigation from './navigation';
+import '../styles/write2.css'
 
 class Write2 extends React.Component {
     constructor(props){
@@ -18,6 +19,16 @@ class Write2 extends React.Component {
         
     }
 
+    fetchData(){
+        axios.get('https://letsenglish.herokuapp.com/api/note')
+            .then(res => {
+                console.log('res in writepage', res)
+                this.setState({notes: res.data})
+            })
+            .catch(err => console.log(err.message))
+
+    }
+
     handleChange = event => {
         const status = {
             content: event.target.value,
@@ -28,10 +39,11 @@ class Write2 extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        this.addStatus(this.state.status)
+        // this.addStatus(this.state.status)
         axios.post('https://letsenglish.herokuapp.com/api/note', this.state.status)
             .then(res => {
-                console.log('res', res)
+                console.log('res in submit', res)
+                this.fetchData()
             })
             .catch(err => console.log(err.message))
     }
@@ -48,18 +60,11 @@ class Write2 extends React.Component {
         })
     }
 
-    fetchData(){
-        axios.get('https://letsenglish.herokuapp.com/api/note')
-            .then(res => {
-                console.log('res in writepage', res)
-                this.setState({notes: res.data})
-            })
-            .catch(err => console.log(err.message))
-
-    }
+    
 
 
     deleteNote(id){
+        console.log('id in delete', id)
         axios.delete(`https://letsenglish.herokuapp.com/api/note/${id}`)
             .then(res => {
                 console.log('res in del req', res)
@@ -74,6 +79,8 @@ class Write2 extends React.Component {
     }
 
     editNote(){
+        console.log('toEditId', this.state.toEditId)
+        console.log("efit fired")
         axios.patch(`https://letsenglish.herokuapp.com/api/note/${this.state.toEditId}`, {content: this.state.contentToEdit})
             .then(res => {
                 console.log('res in patch', res)
@@ -85,12 +92,13 @@ class Write2 extends React.Component {
 
 
     componentDidMount(){
+        console.log("mounted")
         this.fetchData()
     }
 
 
     render(){
-
+        console.log('rendered')
         let notesToDisplay = []
 
         if (this.state.notes.length > 0){
@@ -118,6 +126,8 @@ class Write2 extends React.Component {
             )
         }
 
+        if (notesToDisplay.length >0){ 
+
         return (
             <div>
                 <Navigation />
@@ -129,7 +139,6 @@ class Write2 extends React.Component {
                     />
                     <button>Pen down</button>
                 </form>
-
                 <div className="show">
                 {notesToDisplay.map(note => (
                     <div key={note.id} className="status-container">
@@ -144,9 +153,17 @@ class Write2 extends React.Component {
                     </div>
                 ))}
                 </div>
+
             </div>
         )
+                    }
+        else {
+            return (
+            <div className="loader"></div>
+            )
+        }
     }
+
 }
   
 export default Write2;
