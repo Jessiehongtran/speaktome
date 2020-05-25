@@ -50,11 +50,6 @@ class Write2 extends React.Component {
             .then(res => {
                 console.log('res in writepage', res)
                 var arr = res.data
-                // for (var i = 0; i < arr.length/2; i++){
-                //     var el = arr[i]
-                //     arr[i] = arr[arr.length-i-1]
-                //     arr[arr.length-i-1] = el
-                //   }
                 arr = this.qsort(arr)
                 this.setState({notes: arr})
             })
@@ -72,7 +67,6 @@ class Write2 extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        // this.addStatus(this.state.status)
         console.log('this.state.status', this.state.status)
         axios.post('https://letsenglish.herokuapp.com/api/note', this.state.status)
             .then(res => {
@@ -81,21 +75,6 @@ class Write2 extends React.Component {
             })
             .catch(err => console.log(err.message))
     }
-
-    addStatus = status => {
-        const newStatus = {
-            id: Date.now(),
-            content: status.content,
-            created_at: status.created_at
-        }
-        console.log('newStatus', newStatus)
-        this.setState({
-            notes : [...this.state.notes, newStatus]
-        })
-    }
-
-    
-
 
     deleteNote(id){
         console.log('id in delete', id)
@@ -132,17 +111,6 @@ class Write2 extends React.Component {
 
 
     render(){
-        // console.log('rendered')
-        // let notesToDisplay = []
-
-        // if (this.state.notes.length > 0){
-        //     for (let i=0; i<this.state.notes.length; i++){
-        //         notesToDisplay.push(this.state.notes[this.state.notes.length - i - 1])
-        //     }
-        // }
-
-        // console.log('notesToDisplay', notesToDisplay)
-        // console.log('toEditId', this.state.toEditId)
 
         if (this.state.toEdit){
             console.log('ready to edit')
