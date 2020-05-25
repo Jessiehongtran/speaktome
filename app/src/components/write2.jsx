@@ -19,11 +19,44 @@ class Write2 extends React.Component {
         
     }
 
+    qsort(arr){
+        if (arr.length<2){
+          return arr
+        }
+      
+        var left = []
+        var right = []
+        var middle = []
+      
+        for (var i = 0; i < arr.length; i++){
+          if (arr[i].id< arr[0].id){
+            left.push(arr[i])
+          }
+          else if (arr[i].id> arr[0].id){
+            right.push(arr[i])
+          }
+          else {
+            middle.push(arr[i])
+          }
+        }
+      
+        var sorted_arr = this.qsort(right).concat(middle, this.qsort(left))
+      
+        return sorted_arr
+      }
+
     fetchData(){
         axios.get('https://letsenglish.herokuapp.com/api/note')
             .then(res => {
                 console.log('res in writepage', res)
-                this.setState({notes: res.data})
+                var arr = res.data
+                // for (var i = 0; i < arr.length/2; i++){
+                //     var el = arr[i]
+                //     arr[i] = arr[arr.length-i-1]
+                //     arr[arr.length-i-1] = el
+                //   }
+                arr = this.qsort(arr)
+                this.setState({notes: arr})
             })
             .catch(err => console.log(err.message))
 
@@ -40,6 +73,7 @@ class Write2 extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         // this.addStatus(this.state.status)
+        console.log('this.state.status', this.state.status)
         axios.post('https://letsenglish.herokuapp.com/api/note', this.state.status)
             .then(res => {
                 console.log('res in submit', res)
@@ -98,17 +132,17 @@ class Write2 extends React.Component {
 
 
     render(){
-        console.log('rendered')
-        let notesToDisplay = []
+        // console.log('rendered')
+        // let notesToDisplay = []
 
-        if (this.state.notes.length > 0){
-            for (let i=0; i<this.state.notes.length; i++){
-                notesToDisplay.push(this.state.notes[this.state.notes.length - i - 1])
-            }
-        }
+        // if (this.state.notes.length > 0){
+        //     for (let i=0; i<this.state.notes.length; i++){
+        //         notesToDisplay.push(this.state.notes[this.state.notes.length - i - 1])
+        //     }
+        // }
 
-        console.log('notesToDisplay', notesToDisplay)
-        console.log('toEditId', this.state.toEditId)
+        // console.log('notesToDisplay', notesToDisplay)
+        // console.log('toEditId', this.state.toEditId)
 
         if (this.state.toEdit){
             console.log('ready to edit')
@@ -126,7 +160,7 @@ class Write2 extends React.Component {
             )
         }
 
-        if (notesToDisplay.length >0){ 
+        if (this.state.notes.length >0){ 
 
         return (
             <div>
@@ -140,7 +174,7 @@ class Write2 extends React.Component {
                     <button>Pen down</button>
                 </form>
                 <div className="show">
-                {notesToDisplay.map(note => (
+                {this.state.notes.map(note => (
                     <div key={note.id} className="status-container">
                     <p className="date">{note.created_at}</p>
                     <div className="note">

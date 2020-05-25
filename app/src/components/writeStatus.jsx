@@ -15,6 +15,7 @@ class WriteStatus extends React.Component {
             content: event.target.value,
             created_at:  new Date().toLocaleString()
         }
+        console.log('statussss', status)
         this.setState(status)
     }
 
