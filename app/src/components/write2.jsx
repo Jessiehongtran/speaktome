@@ -11,7 +11,9 @@ class Write2 extends React.Component {
             status: "",
             toEdit: false,
             toEditId: 0,
-            contentToEdit: ""
+            contentToEdit: "",
+            countNotes: 0,
+            
         }
 
         this.handleEdit = this.handleEdit.bind(this)
@@ -52,6 +54,7 @@ class Write2 extends React.Component {
                 var arr = res.data
                 arr = this.qsort(arr)
                 this.setState({notes: arr})
+                this.setState({countNotes: arr.length})
             })
             .catch(err => console.log(err.message))
 
@@ -74,6 +77,11 @@ class Write2 extends React.Component {
                 this.fetchData()
             })
             .catch(err => console.log(err.message))
+    }
+
+    isCorrected(id){
+        console.log('this.state.notes', this.state.notes)
+        // this.setState({isChecked: !this.state.isChecked})
     }
 
     deleteNote(id){
@@ -128,6 +136,8 @@ class Write2 extends React.Component {
             )
         }
 
+        console.log('isCorrected', this.state.isChecked)
+
         if (this.state.notes.length >0){ 
 
         return (
@@ -140,6 +150,7 @@ class Write2 extends React.Component {
                         placeholder=""
                     />
                     <button>Pen down</button>
+                <h3><span>{this.state.countNotes}</span> notes written</h3>
                 </form>
                 <div className="show">
                 {this.state.notes.map(note => (
@@ -150,6 +161,10 @@ class Write2 extends React.Component {
                         <div className="btn">
                             <button onClick={() => this.setState({toEdit:!this.state.toEdit,  toEditId: note.id, contentToEdit: note.content})}>Edit</button>
                             <button onClick={() => this.deleteNote(note.id)}>Delete</button>
+                            <label>
+                                {this.state.isChecked ? null :<input type="checkbox" onClick={() => this.isCorrected(note.id)}/>}
+                                Corrected
+                            </label>
                         </div>
                     </div>
                     </div>
